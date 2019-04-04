@@ -5,6 +5,10 @@
  */
 package rsadecrypt;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author MarcVe
@@ -18,7 +22,41 @@ public class RSADecrypt {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println(String.format("Decrypting message: \n%s\n", encryptedString));
         
+        List<BigInteger> rsaDecrypted = rsaToAscii(encryptedString.split(","), N, E);
+//        List<Integer> asciiValues = stringToAscii(asciiValues, N, E);
+        
+System.out.println(rsaDecrypted.toString());
+        
+        
+//        System.out.println(String.format("Decrypted message: \n%s\n", rsaEncrypted.toString()));
     }
     
+        private static List<Integer> stringToAscii(String message) {
+        List<Integer> asciiValues = new ArrayList<>();
+        
+        for (int i = 0; i < message.length(); i++){
+            char c = message.charAt(i);   
+            
+            asciiValues.add((int)c);
+        }
+        
+        return asciiValues;
+    }
+    
+    private static List<BigInteger> rsaToAscii(String[] values, int pq, int e) {
+        List<BigInteger> asciiValues = new ArrayList<>();
+        
+        for (int i = 0; i < values.length; i++){
+            BigInteger bi = new BigInteger(values[i]);
+            BigInteger bigPq = BigInteger.valueOf(pq);
+            BigInteger powered = bi.pow(e);
+            BigInteger restValue = powered.mod(bigPq);
+            
+            asciiValues.add(restValue);
+        }
+        
+        return asciiValues;
+    }
 }
