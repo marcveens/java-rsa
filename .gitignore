@@ -25,3 +25,5 @@ hs_err_pid*
 /RSAEncrypt/dist/
 /Encrypt/Encrypt/target/
 /Encrypt/Encrypt/nbproject/
+/RSA/nbproject/
+/RSA/target/

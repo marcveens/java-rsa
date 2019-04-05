@@ -7,7 +7,8 @@
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
-import nl.marcveens.encrypt.Encrypt;
+import nl.marcveens.rsa.Encrypt;
+import nl.marcveens.rsa.RsaHelper;
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
@@ -27,15 +28,15 @@ public class EncryptJUnitTest {
 
     @Test
     public void findPandQ() {
-        List<BigInteger> factors = Encrypt.getPrimeFactors(N.intValue());
+        List<BigInteger> factors = RsaHelper.getPrimeFactors(N.intValue());
         
         assertThat(factors, containsInAnyOrder(P, Q));
     }
     
     @Test
     public void findE() {
-        BigInteger phi = Encrypt.getPhi(P, Q);
-        BigInteger e = Encrypt.getE(phi, N.intValue());
+        BigInteger phi = RsaHelper.getPhi(P, Q);
+        BigInteger e = RsaHelper.getE(phi, N.intValue());
         
         assertThat(e, is(E));
     }
